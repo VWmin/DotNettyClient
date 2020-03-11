@@ -16,7 +16,7 @@ namespace NettyDemo.network {
             Charset = encoding;
         }
         protected override void Encode(IChannelHandlerContext context, CustomProtocol message, IByteBuffer output) {
-            string jsonStr = JsonConvert.SerializeObject(message);
+            string jsonStr = JsonConvert.SerializeObject(message)+"\n";
             output.WriteBytes(Charset.GetBytes(jsonStr));
         }
     }

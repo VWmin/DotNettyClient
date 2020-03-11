@@ -17,5 +17,26 @@
             <TextBox x:Name="tb2" Grid.Row="1" Background="LightBlue" FontSize="24" Margin="4" Text="{Binding ReceiveText}"/>
             <Button x:Name="addButton" Grid.Row="3" Content="send" Width="120" Height="80" Command="{Binding SendCommand}"/>
         </Grid>
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Onlines}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!--容器-->
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <!--节点模板-->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                        <Border >
+                        <Grid>
+                            <TextBlock Text="{Binding Name}" FontSize="16" />
+                        </Grid>
+                        </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+            
     </Grid>
 </Window>

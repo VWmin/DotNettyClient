@@ -221,6 +221,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Online.cs" />
+    <Compile Include="Network\resolver\LoginMessageResolver.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NotificationObject.cs" />
     <Page Include="MainWindow.xaml">

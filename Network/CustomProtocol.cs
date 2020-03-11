@@ -63,5 +63,9 @@ namespace NettyDemo.network {
         public static CustomProtocol Heartbeat() {
             return Heartbeat("ping");
         }
+
+        public static CustomProtocol Login() {
+            return new CustomProtocol(MessageType.Login, "login");
+        }
     }
 }

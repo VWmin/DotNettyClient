@@ -44,6 +44,7 @@ namespace NettyDemo.network {
                 .Handler(new ActionChannelInitializer<ISocketChannel>(channel => {
                     IChannelPipeline pipeline = channel.Pipeline;
                     pipeline.AddLast("idleStateHandler", new IdleStateHandler(0, 5, 0));
+                    pipeline.AddLast("lineBasedFrameDecoder", new LineBasedFrameDecoder(2048));
                     pipeline.AddLast("customEncoder", new CustomProtocolEncoder(Encoding.UTF8));
                     pipeline.AddLast("customDecoder", new CustomProtocolDecoder(Encoding.UTF8));
                     pipeline.AddLast("tcpHandler", handler);
@@ -53,18 +54,17 @@ namespace NettyDemo.network {
 
         public void Connect() {
             Connected = false;
-            var connected = false;
             do {
                 try {
                     Channel = AsyncHelpers.RunSync<IChannel>(() => SocketBootstrap.ConnectAsync(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8081)));
                     ChannelInitilizedEvent.Set();
-                    connected = true;
+                    Connected = true;
                 } catch (Exception ce) {
                     Console.WriteLine(ce.StackTrace);
                     Console.WriteLine("Reconnect server after 5 seconds...");
                     Thread.Sleep(5000);
                 }
-            } while (!connected);
+            } while (!Connected);
         }
         public void Disconnect() {
             WorkGroup.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1));
